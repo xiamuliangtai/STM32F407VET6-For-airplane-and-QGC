@@ -22,6 +22,19 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#include "app_context.h"
+#include "bsp_timer.h"
+#include "bsp_uart.h"
+#include "indicator.h"
+#include "mission_fsm.h"
+#include "protocol.h"
+#include "protocol_fc.h"
+#include "protocol_gs.h"
+#include "protocol_openmv.h"
+#include "protocol_uwb.h"
+#include "safety.h"
+#include "telemetry.h"
+#include "usart.h"
 
 /* USER CODE END Includes */
 
@@ -86,6 +99,18 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   /* USER CODE BEGIN 2 */
+  MX_USART1_UART_Init();
+  BSP_Timer_Init();
+  BSP_UART_InitAll();
+  AppContext_Init(&g_app);
+  ProtocolGS_Init();
+  ProtocolFC_Init();
+  ProtocolUWB_Init();
+  ProtocolOpenMV_Init();
+  Safety_Init();
+  Telemetry_Init();
+  Indicator_Init();
+  MissionFSM_Init(&g_app);
 
   /* USER CODE END 2 */
 
@@ -96,6 +121,12 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
+    BSP_UART_PollFlags();
+    Protocol_Dispatch();
+    Safety_Check(&g_app);
+    MissionFSM_Run(&g_app);
+    Telemetry_Task(&g_app);
+    Indicator_Update(&g_app);
   }
   /* USER CODE END 3 */
 }
