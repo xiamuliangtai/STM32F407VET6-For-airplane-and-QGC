@@ -1,0 +1,83 @@
+# =========================
+# Build output / intermediate files
+# =========================
+build/
+Build/
+Debug/
+Release/
+cmake-build-*/
+out/
+dist/
+
+*.o
+*.obj
+*.d
+*.su
+*.lst
+*.list
+*.map
+*.elf
+*.axf
+*.bin
+*.hex
+*.srec
+*.a
+*.lib
+
+# =========================
+# STM32 / GCC generated temp files
+# =========================
+*.dep
+*.i
+*.ii
+*.s
+*.crf
+*.bak
+*.tmp
+
+# =========================
+# CubeIDE / Eclipse metadata
+# =========================
+.project
+.cproject
+.settings/
+.metadata/
+
+# =========================
+# Keil / MDK
+# =========================
+*.uvoptx
+*.uvprojx
+*.uvguix.*
+Listing/
+Objects/
+RTE/
+
+# =========================
+# IAR
+# =========================
+*.ewd
+*.ewp
+*.eww
+*.dep
+
+# =========================
+# VSCode cache (保留配置，忽略缓存)
+# =========================
+.vscode/*
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/c_cpp_properties.json
+!.vscode/settings.json
+!.vscode/extensions.json
+
+# =========================
+# OS files
+# =========================
+.DS_Store
+Thumbs.db
+
+# =========================
+# Logs
+# =========================
+*.log
