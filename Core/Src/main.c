@@ -27,6 +27,7 @@
 #include "bsp_uart.h"
 #include "indicator.h"
 #include "mission_fsm.h"
+#include "oled.h"
 #include "protocol.h"
 #include "protocol_fc.h"
 #include "protocol_gs.h"
@@ -56,6 +57,8 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
+static uint32_t s_oled_last_update_ms;
+static uint8_t s_oled_ready;
 
 /* USER CODE END PV */
 
@@ -111,6 +114,15 @@ int main(void)
   Telemetry_Init();
   Indicator_Init();
   MissionFSM_Init(&g_app);
+  s_oled_last_update_ms = HAL_GetTick();
+  s_oled_ready = OLED_Init();
+  OLED_ShowGsRxScreen(g_app.gs_online,
+                      (uint8_t)g_app.gs_rx_status,
+                      g_app.gs_last_rx_code,
+                      g_app.gs_last_rx_seq,
+                      g_app.mission.valid,
+                      g_app.mission.seq,
+                      g_app.mission.point_count);
 
   /* USER CODE END 2 */
 
@@ -127,6 +139,18 @@ int main(void)
     MissionFSM_Run(&g_app);
     Telemetry_Task(&g_app);
     Indicator_Update(&g_app);
+
+    if ((s_oled_ready != 0U) && ((HAL_GetTick() - s_oled_last_update_ms) >= 500U))
+    {
+      s_oled_last_update_ms = HAL_GetTick();
+      OLED_ShowGsRxScreen(g_app.gs_online,
+                          (uint8_t)g_app.gs_rx_status,
+                          g_app.gs_last_rx_code,
+                          g_app.gs_last_rx_seq,
+                          g_app.mission.valid,
+                          g_app.mission.seq,
+                          g_app.mission.point_count);
+    }
   }
   /* USER CODE END 3 */
 }

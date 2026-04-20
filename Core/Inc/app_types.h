@@ -45,6 +45,13 @@ typedef enum
     FAULT_MISSION_ABORT = 4
 } FaultCode_e;
 
+typedef enum
+{
+    GS_RX_STATUS_WAIT = 0,
+    GS_RX_STATUS_OK,
+    GS_RX_STATUS_ERR
+} GsRxStatus_e;
+
 typedef struct
 {
     float x;
@@ -125,6 +132,9 @@ typedef struct
     uint8_t uwb_online;
     uint8_t fc_online;
     uint8_t vision_online;
+    GsRxStatus_e gs_rx_status;
+    uint8_t gs_last_rx_code;
+    uint8_t gs_last_rx_seq;
 
     uint8_t emergency_stop;
     uint8_t mission_abort;

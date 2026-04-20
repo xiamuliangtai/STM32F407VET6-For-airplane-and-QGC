@@ -12,6 +12,15 @@ static uint16_t read_u16_le(const uint8_t *data)
     return (uint16_t)data[0] | ((uint16_t)data[1] << 8U);
 }
 
+static void record_upload_status(uint8_t seq, GsUploadAckResult_e result)
+{
+    g_app.last_gs_rx_ms = BSP_Timer_NowMs();
+    g_app.gs_online = 1U;
+    g_app.gs_last_rx_seq = seq;
+    g_app.gs_last_rx_code = (uint8_t)result;
+    g_app.gs_rx_status = (result == GS_UPLOAD_ACK_OK) ? GS_RX_STATUS_OK : GS_RX_STATUS_ERR;
+}
+
 void ProtocolGS_Init(void)
 {
 }
@@ -21,6 +30,8 @@ void ProtocolGS_SendUploadAck(uint8_t seq, GsUploadAckResult_e result, uint16_t 
     uint8_t payload[4];
     uint8_t frame[APP_PROTO_MAX_FRAME_LEN];
     uint16_t len;
+
+    record_upload_status(seq, result);
 
     payload[0] = (uint8_t)result;
     payload[1] = 0U;
@@ -45,9 +56,6 @@ void ProtocolGS_HandleFrame(const ProtoFrame_t *frame)
     {
         return;
     }
-
-    g_app.last_gs_rx_ms = BSP_Timer_NowMs();
-    g_app.gs_online = 1U;
 
     if (frame->msg_id != MSG_UPLOAD_PATH)
     {

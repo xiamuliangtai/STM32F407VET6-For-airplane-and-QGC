@@ -18,6 +18,7 @@
 "stm32_task_ctrl\safety.o"
 "stm32_task_ctrl\telemetry.o"
 "stm32_task_ctrl\indicator.o"
+"stm32_task_ctrl\oled.o"
 "stm32_task_ctrl\stm32f4xx_hal_tim.o"
 "stm32_task_ctrl\stm32f4xx_hal_tim_ex.o"
 "stm32_task_ctrl\stm32f4xx_hal_rcc.o"
