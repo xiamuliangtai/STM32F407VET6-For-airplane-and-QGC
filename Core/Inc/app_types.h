@@ -56,13 +56,20 @@ typedef struct
 
 typedef struct
 {
+    uint8_t col;
+    uint8_t row;
+    uint8_t type;
+    uint16_t hold_ms;
+    uint8_t reserved;
+} GsPoint_t;
+
+typedef struct
+{
+    uint8_t seq;
+    uint8_t point_count;
+    uint8_t current_index;
     uint8_t valid;
-    uint16_t task_id;
-    uint16_t total_points;
-    uint16_t current_index;
-    uint16_t uploaded_points;
-    WayPoint_t points[APP_MAX_WAYPOINTS];
-    uint8_t point_written[APP_MAX_WAYPOINTS];
+    GsPoint_t points[APP_MAX_WAYPOINTS];
 } Mission_t;
 
 typedef struct

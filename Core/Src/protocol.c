@@ -9,13 +9,22 @@
 #include "protocol_openmv.h"
 #include "protocol_uwb.h"
 
+static uint16_t read_u16_le(const uint8_t *data)
+{
+    return (uint16_t)data[0] | ((uint16_t)data[1] << 8U);
+}
+
 static void Protocol_DispatchGsRaw(const UartRxFrame_t *raw)
 {
     ProtoFrame_t frame;
     uint16_t offset = 0U;
+    uint16_t payload_len;
     uint16_t frame_len;
+    ProtocolParseResult_e parse_result;
+    uint8_t msg_id;
+    uint8_t seq;
 
-    while ((raw != NULL) && ((offset + 7U) <= raw->len))
+    while ((raw != NULL) && ((offset + 8U) <= raw->len))
     {
         if ((raw->data[offset] != PROTO_SOF1) || (raw->data[offset + 1U] != PROTO_SOF2))
         {
@@ -23,19 +32,45 @@ static void Protocol_DispatchGsRaw(const UartRxFrame_t *raw)
             continue;
         }
 
-        frame_len = (uint16_t)raw->data[offset + 2U] + 7U;
-        if ((frame_len < 7U) || ((offset + frame_len) > raw->len))
+        msg_id = raw->data[offset + 2U];
+        seq = raw->data[offset + 3U];
+        payload_len = read_u16_le(&raw->data[offset + 4U]);
+
+        if (payload_len > APP_PROTO_MAX_PAYLOAD_LEN)
+        {
+            if (msg_id == MSG_UPLOAD_PATH)
+            {
+                ProtocolGS_SendUploadAck(seq, GS_UPLOAD_ACK_LENGTH_ERROR, 0U);
+            }
+            g_app.fault_code = FAULT_PROTOCOL;
+            break;
+        }
+
+        frame_len = (uint16_t)(payload_len + 8U);
+        if ((offset + frame_len) > raw->len)
         {
             g_app.fault_code = FAULT_PROTOCOL;
             break;
         }
 
-        if (Protocol_Parse(&raw->data[offset], frame_len, &frame) != 0U)
+        parse_result = Protocol_Parse(&raw->data[offset], frame_len, &frame);
+        if (parse_result == PROTO_PARSE_OK)
         {
             ProtocolGS_HandleFrame(&frame);
         }
         else
         {
+            if (msg_id == MSG_UPLOAD_PATH)
+            {
+                if (parse_result == PROTO_PARSE_ERR_CRC)
+                {
+                    ProtocolGS_SendUploadAck(seq, GS_UPLOAD_ACK_CRC_ERROR, 0U);
+                }
+                else if (parse_result == PROTO_PARSE_ERR_LENGTH)
+                {
+                    ProtocolGS_SendUploadAck(seq, GS_UPLOAD_ACK_LENGTH_ERROR, 0U);
+                }
+            }
             g_app.fault_code = FAULT_PROTOCOL;
         }
 
@@ -68,50 +103,50 @@ uint16_t Protocol_Crc16(const uint8_t *data, uint16_t len)
     return crc;
 }
 
-uint8_t Protocol_Parse(const uint8_t *raw, uint16_t len, ProtoFrame_t *out)
+ProtocolParseResult_e Protocol_Parse(const uint8_t *raw, uint16_t len, ProtoFrame_t *out)
 {
     uint16_t crc_calc;
     uint16_t crc_recv;
     uint16_t payload_len;
 
-    if ((raw == NULL) || (out == NULL) || (len < 7U))
+    if ((raw == NULL) || (out == NULL) || (len < 8U))
     {
-        return 0U;
+        return PROTO_PARSE_ERR_LENGTH;
     }
 
     if ((raw[0] != PROTO_SOF1) || (raw[1] != PROTO_SOF2))
     {
-        return 0U;
+        return PROTO_PARSE_ERR_HEADER;
     }
 
-    payload_len = raw[2];
-    if ((payload_len > APP_PROTO_MAX_PAYLOAD_LEN) || (len != (uint16_t)(payload_len + 7U)))
+    payload_len = read_u16_le(&raw[4]);
+    if ((payload_len > APP_PROTO_MAX_PAYLOAD_LEN) || (len != (uint16_t)(payload_len + 8U)))
     {
-        return 0U;
+        return PROTO_PARSE_ERR_LENGTH;
     }
 
-    crc_calc = Protocol_Crc16(&raw[2], (uint16_t)(payload_len + 3U));
-    crc_recv = (uint16_t)raw[len - 2U] | ((uint16_t)raw[len - 1U] << 8U);
+    crc_calc = Protocol_Crc16(&raw[2], (uint16_t)(payload_len + 4U));
+    crc_recv = read_u16_le(&raw[len - 2U]);
     if (crc_calc != crc_recv)
     {
-        return 0U;
+        return PROTO_PARSE_ERR_CRC;
     }
 
-    out->payload_len = (uint8_t)payload_len;
-    out->msg_id = raw[3];
-    out->seq = raw[4];
+    out->payload_len = payload_len;
+    out->msg_id = raw[2];
+    out->seq = raw[3];
     if (payload_len > 0U)
     {
-        memcpy(out->payload, &raw[5], payload_len);
+        memcpy(out->payload, &raw[6], payload_len);
     }
 
-    return 1U;
+    return PROTO_PARSE_OK;
 }
 
 uint16_t Protocol_BuildFrame(uint8_t msg_id,
                              uint8_t seq,
                              const uint8_t *payload,
-                             uint8_t payload_len,
+                             uint16_t payload_len,
                              uint8_t *out_buf)
 {
     uint16_t crc;
@@ -123,20 +158,21 @@ uint16_t Protocol_BuildFrame(uint8_t msg_id,
 
     out_buf[0] = PROTO_SOF1;
     out_buf[1] = PROTO_SOF2;
-    out_buf[2] = payload_len;
-    out_buf[3] = msg_id;
-    out_buf[4] = seq;
+    out_buf[2] = msg_id;
+    out_buf[3] = seq;
+    out_buf[4] = (uint8_t)(payload_len & 0x00FFU);
+    out_buf[5] = (uint8_t)((payload_len >> 8U) & 0x00FFU);
 
     if ((payload_len > 0U) && (payload != NULL))
     {
-        memcpy(&out_buf[5], payload, payload_len);
+        memcpy(&out_buf[6], payload, payload_len);
     }
 
-    crc = Protocol_Crc16(&out_buf[2], (uint16_t)(payload_len + 3U));
-    out_buf[5U + payload_len] = (uint8_t)(crc & 0x00FFU);
-    out_buf[6U + payload_len] = (uint8_t)((crc >> 8U) & 0x00FFU);
+    crc = Protocol_Crc16(&out_buf[2], (uint16_t)(payload_len + 4U));
+    out_buf[6U + payload_len] = (uint8_t)(crc & 0x00FFU);
+    out_buf[7U + payload_len] = (uint8_t)((crc >> 8U) & 0x00FFU);
 
-    return (uint16_t)(payload_len + 7U);
+    return (uint16_t)(payload_len + 8U);
 }
 
 void Protocol_Dispatch(void)

@@ -7,10 +7,18 @@ extern "C" {
 
 #include "protocol.h"
 
+typedef enum
+{
+    GS_UPLOAD_ACK_OK = 0x00,
+    GS_UPLOAD_ACK_CRC_ERROR = 0x01,
+    GS_UPLOAD_ACK_LENGTH_ERROR = 0x02,
+    GS_UPLOAD_ACK_POINT_ERROR = 0x03,
+    GS_UPLOAD_ACK_BUFFER_FULL = 0x04
+} GsUploadAckResult_e;
+
 void ProtocolGS_Init(void);
 void ProtocolGS_HandleFrame(const ProtoFrame_t *frame);
-void ProtocolGS_SendAck(uint8_t seq, uint8_t ack_msg);
-void ProtocolGS_SendNack(uint8_t seq, uint8_t nack_msg, uint8_t nack_code);
+void ProtocolGS_SendUploadAck(uint8_t seq, GsUploadAckResult_e result, uint16_t accepted_count);
 
 #ifdef __cplusplus
 }

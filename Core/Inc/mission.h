@@ -9,11 +9,9 @@ extern "C" {
 
 void Mission_Init(Mission_t *mission);
 void Mission_Clear(Mission_t *mission);
-uint8_t Mission_SetInfo(Mission_t *mission, uint16_t task_id, uint16_t total_points);
-uint8_t Mission_SetWaypoint(Mission_t *mission, uint16_t index, const WayPoint_t *wp);
-uint8_t Mission_Commit(Mission_t *mission);
+uint8_t Mission_LoadPath(Mission_t *mission, uint8_t seq, uint8_t point_count, const GsPoint_t *points);
 uint8_t Mission_IsReady(const Mission_t *mission);
-WayPoint_t *Mission_GetCurrentWaypoint(Mission_t *mission);
+GsPoint_t *Mission_GetCurrentPoint(Mission_t *mission);
 uint8_t Mission_Advance(Mission_t *mission);
 
 #ifdef __cplusplus

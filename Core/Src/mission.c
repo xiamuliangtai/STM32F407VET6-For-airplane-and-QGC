@@ -17,67 +17,30 @@ void Mission_Clear(Mission_t *mission)
     memset(mission, 0, sizeof(*mission));
 }
 
-uint8_t Mission_SetInfo(Mission_t *mission, uint16_t task_id, uint16_t total_points)
+uint8_t Mission_LoadPath(Mission_t *mission, uint8_t seq, uint8_t point_count, const GsPoint_t *points)
 {
-    if ((mission == NULL) || (total_points == 0U) || (total_points > APP_MAX_WAYPOINTS))
+    if ((mission == NULL) || (points == NULL) || (point_count == 0U) || (point_count > APP_MAX_WAYPOINTS))
     {
         return 0U;
     }
 
     Mission_Clear(mission);
-    mission->task_id = task_id;
-    mission->total_points = total_points;
-    return 1U;
-}
-
-uint8_t Mission_SetWaypoint(Mission_t *mission, uint16_t index, const WayPoint_t *wp)
-{
-    if ((mission == NULL) || (wp == NULL) || (mission->total_points == 0U) || (index >= mission->total_points))
-    {
-        return 0U;
-    }
-
-    mission->points[index] = *wp;
-    if (mission->point_written[index] == 0U)
-    {
-        mission->point_written[index] = 1U;
-        mission->uploaded_points++;
-    }
-
-    return 1U;
-}
-
-uint8_t Mission_Commit(Mission_t *mission)
-{
-    uint16_t i;
-
-    if ((mission == NULL) || (mission->total_points == 0U))
-    {
-        return 0U;
-    }
-
-    for (i = 0U; i < mission->total_points; i++)
-    {
-        if (mission->point_written[i] == 0U)
-        {
-            mission->valid = 0U;
-            return 0U;
-        }
-    }
-
-    mission->valid = 1U;
+    mission->seq = seq;
+    mission->point_count = point_count;
+    memcpy(mission->points, points, (uint32_t)point_count * sizeof(GsPoint_t));
     mission->current_index = 0U;
+    mission->valid = 1U;
     return 1U;
 }
 
 uint8_t Mission_IsReady(const Mission_t *mission)
 {
-    return ((mission != NULL) && (mission->valid != 0U) && (mission->total_points > 0U)) ? 1U : 0U;
+    return ((mission != NULL) && (mission->valid != 0U) && (mission->point_count > 0U)) ? 1U : 0U;
 }
 
-WayPoint_t *Mission_GetCurrentWaypoint(Mission_t *mission)
+GsPoint_t *Mission_GetCurrentPoint(Mission_t *mission)
 {
-    if ((mission == NULL) || (mission->valid == 0U) || (mission->current_index >= mission->total_points))
+    if ((mission == NULL) || (mission->valid == 0U) || (mission->current_index >= mission->point_count))
     {
         return NULL;
     }
@@ -92,7 +55,7 @@ uint8_t Mission_Advance(Mission_t *mission)
         return 0U;
     }
 
-    if ((mission->current_index + 1U) >= mission->total_points)
+    if ((mission->current_index + 1U) >= mission->point_count)
     {
         return 0U;
     }

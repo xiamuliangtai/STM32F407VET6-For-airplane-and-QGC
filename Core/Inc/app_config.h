@@ -9,11 +9,13 @@ extern "C" {
 
 #define APP_DEBUG_ENABLE                    1U
 
-#define APP_MAX_WAYPOINTS                   32U
+#define APP_MAX_WAYPOINTS                   64U
 
-#define APP_UART_RX_FRAME_MAX_LEN           192U
-#define APP_PROTO_MAX_PAYLOAD_LEN           128U
-#define APP_PROTO_MAX_FRAME_LEN             (APP_PROTO_MAX_PAYLOAD_LEN + 7U)
+#define APP_GS_UART_BAUDRATE                115200U
+
+#define APP_UART_RX_FRAME_MAX_LEN           512U
+#define APP_PROTO_MAX_PAYLOAD_LEN           (1U + (APP_MAX_WAYPOINTS * 6U))
+#define APP_PROTO_MAX_FRAME_LEN             (APP_PROTO_MAX_PAYLOAD_LEN + 8U)
 
 #define APP_GS_TIMEOUT_MS                   2000U
 #define APP_UWB_TIMEOUT_MS                  500U
