@@ -11,7 +11,7 @@ extern "C" {
 
 #define APP_MAX_WAYPOINTS                   64U
 
-#define APP_GS_UART_BAUDRATE                115200U
+#define APP_GS_UART_BAUDRATE                500000U
 
 #define APP_UART_RX_FRAME_MAX_LEN           512U
 #define APP_PROTO_MAX_PAYLOAD_LEN           (1U + (APP_MAX_WAYPOINTS * 6U))
