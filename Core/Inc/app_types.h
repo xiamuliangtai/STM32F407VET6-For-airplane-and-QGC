@@ -133,6 +133,7 @@ typedef struct
     uint8_t fc_online;
     uint8_t vision_online;
     GsRxStatus_e gs_rx_status;
+    uint32_t gs_last_rx_event_ms;
     uint8_t gs_last_rx_code;
     uint8_t gs_last_rx_seq;
 

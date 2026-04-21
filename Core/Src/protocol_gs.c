@@ -14,7 +14,11 @@ static uint16_t read_u16_le(const uint8_t *data)
 
 static void record_upload_status(uint8_t seq, GsUploadAckResult_e result)
 {
-    g_app.last_gs_rx_ms = BSP_Timer_NowMs();
+    uint32_t now_ms;
+
+    now_ms = BSP_Timer_NowMs();
+    g_app.last_gs_rx_ms = now_ms;
+    g_app.gs_last_rx_event_ms = now_ms;
     g_app.gs_online = 1U;
     g_app.gs_last_rx_seq = seq;
     g_app.gs_last_rx_code = (uint8_t)result;

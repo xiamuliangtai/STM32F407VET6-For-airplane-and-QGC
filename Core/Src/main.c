@@ -65,11 +65,54 @@ static uint8_t s_oled_ready;
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 /* USER CODE BEGIN PFP */
+static void OLED_UpdateGsRxDisplay(void);
 
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
+static void OLED_UpdateGsRxDisplay(void)
+{
+  uint8_t rx_status;
+  uint8_t rx_code;
+  uint8_t rx_seq;
+  uint8_t mission_valid;
+  uint8_t mission_seq;
+  uint8_t mission_points;
+  uint32_t now_ms;
+
+  if (s_oled_ready == 0U)
+  {
+    return;
+  }
+
+  now_ms = BSP_Timer_NowMs();
+  rx_status = (uint8_t)g_app.gs_rx_status;
+  rx_code = g_app.gs_last_rx_code;
+  rx_seq = g_app.gs_last_rx_seq;
+  mission_valid = g_app.mission.valid;
+  mission_seq = g_app.mission.seq;
+  mission_points = g_app.mission.point_count;
+
+  if ((g_app.gs_last_rx_event_ms == 0U) ||
+      (BSP_Timer_IsElapsed(now_ms, g_app.gs_last_rx_event_ms, APP_OLED_RX_HOLD_MS) != 0U))
+  {
+    rx_status = (uint8_t)GS_RX_STATUS_WAIT;
+    rx_code = 0U;
+    rx_seq = 0U;
+    mission_valid = 0U;
+    mission_seq = 0U;
+    mission_points = 0U;
+  }
+
+  OLED_ShowGsRxScreen(g_app.gs_online,
+                      rx_status,
+                      rx_code,
+                      rx_seq,
+                      mission_valid,
+                      mission_seq,
+                      mission_points);
+}
 
 /* USER CODE END 0 */
 
@@ -116,13 +159,7 @@ int main(void)
   MissionFSM_Init(&g_app);
   s_oled_last_update_ms = HAL_GetTick();
   s_oled_ready = OLED_Init();
-  OLED_ShowGsRxScreen(g_app.gs_online,
-                      (uint8_t)g_app.gs_rx_status,
-                      g_app.gs_last_rx_code,
-                      g_app.gs_last_rx_seq,
-                      g_app.mission.valid,
-                      g_app.mission.seq,
-                      g_app.mission.point_count);
+  OLED_UpdateGsRxDisplay();
 
   /* USER CODE END 2 */
 
@@ -143,13 +180,7 @@ int main(void)
     if ((s_oled_ready != 0U) && ((HAL_GetTick() - s_oled_last_update_ms) >= 500U))
     {
       s_oled_last_update_ms = HAL_GetTick();
-      OLED_ShowGsRxScreen(g_app.gs_online,
-                          (uint8_t)g_app.gs_rx_status,
-                          g_app.gs_last_rx_code,
-                          g_app.gs_last_rx_seq,
-                          g_app.mission.valid,
-                          g_app.mission.seq,
-                          g_app.mission.point_count);
+      OLED_UpdateGsRxDisplay();
     }
   }
   /* USER CODE END 3 */
