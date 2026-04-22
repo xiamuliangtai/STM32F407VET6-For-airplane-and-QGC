@@ -46,6 +46,10 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
+#define TEST_ELEPHANT_COL                  1U
+#define TEST_ELEPHANT_ROW                  1U
+#define TEST_TIGER_COL                     2U
+#define TEST_TIGER_ROW                     1U
 
 /* USER CODE END PD */
 
@@ -59,6 +63,8 @@
 /* USER CODE BEGIN PV */
 static uint32_t s_oled_last_update_ms;
 static uint8_t s_oled_ready;
+static uint8_t s_key0_prev_pressed;
+static uint8_t s_key1_prev_pressed;
 
 /* USER CODE END PV */
 
@@ -66,11 +72,34 @@ static uint8_t s_oled_ready;
 void SystemClock_Config(void);
 /* USER CODE BEGIN PFP */
 static void OLED_UpdateGsRxDisplay(void);
+static void App_PollAnimalReportButtons(void);
 
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
+static void App_PollAnimalReportButtons(void)
+{
+  uint8_t key0_pressed;
+  uint8_t key1_pressed;
+
+  key0_pressed = (HAL_GPIO_ReadPin(KEY0_GPIO_Port, KEY0_Pin) == GPIO_PIN_RESET) ? 1U : 0U;
+  key1_pressed = (HAL_GPIO_ReadPin(KEY1_GPIO_Port, KEY1_Pin) == GPIO_PIN_RESET) ? 1U : 0U;
+
+  if ((key0_pressed != 0U) && (s_key0_prev_pressed == 0U))
+  {
+    ProtocolGS_SendAnimalReport((uint8_t)GS_ANIMAL_ELEPHANT, TEST_ELEPHANT_COL, TEST_ELEPHANT_ROW);
+  }
+
+  if ((key1_pressed != 0U) && (s_key1_prev_pressed == 0U))
+  {
+    ProtocolGS_SendAnimalReport((uint8_t)GS_ANIMAL_TIGER, TEST_TIGER_COL, TEST_TIGER_ROW);
+  }
+
+  s_key0_prev_pressed = key0_pressed;
+  s_key1_prev_pressed = key1_pressed;
+}
+
 static void OLED_UpdateGsRxDisplay(void)
 {
   uint8_t rx_status;
@@ -159,6 +188,8 @@ int main(void)
   MissionFSM_Init(&g_app);
   s_oled_last_update_ms = HAL_GetTick();
   s_oled_ready = OLED_Init();
+  s_key0_prev_pressed = 0U;
+  s_key1_prev_pressed = 0U;
   OLED_UpdateGsRxDisplay();
 
   /* USER CODE END 2 */
@@ -171,6 +202,7 @@ int main(void)
 
     /* USER CODE BEGIN 3 */
     BSP_UART_PollFlags();
+    App_PollAnimalReportButtons();
     Protocol_Dispatch();
     Safety_Check(&g_app);
     MissionFSM_Run(&g_app);

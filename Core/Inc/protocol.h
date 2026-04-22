@@ -14,6 +14,7 @@ extern "C" {
 typedef enum
 {
     MSG_UPLOAD_PATH     = 0x01,
+    MSG_ANIMAL_REPORT   = 0x02,
     MSG_ACK_UPLOAD_PATH = 0x81
 } MsgId_e;
 

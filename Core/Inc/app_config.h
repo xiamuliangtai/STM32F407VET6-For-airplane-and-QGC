@@ -19,6 +19,7 @@ extern "C" {
 
 #define APP_GS_TIMEOUT_MS                   2000U
 #define APP_OLED_RX_HOLD_MS                 5000U
+#define APP_ANIMAL_REPORT_MIN_INTERVAL_MS   1000U
 #define APP_UWB_TIMEOUT_MS                  500U
 #define APP_FC_TIMEOUT_MS                   500U
 #define APP_VISION_TIMEOUT_MS               500U

@@ -7,6 +7,12 @@
 
 #define GS_POINT_WIRE_SIZE        6U
 
+static uint8_t s_last_animal_code = 0xFFU;
+static uint8_t s_last_col = 0U;
+static uint8_t s_last_row = 0U;
+static uint8_t s_animal_report_seq = 0U;
+static uint32_t s_last_animal_report_ms = 0U;
+
 static uint16_t read_u16_le(const uint8_t *data)
 {
     return (uint16_t)data[0] | ((uint16_t)data[1] << 8U);
@@ -27,6 +33,11 @@ static void record_upload_status(uint8_t seq, GsUploadAckResult_e result)
 
 void ProtocolGS_Init(void)
 {
+    s_last_animal_code = 0xFFU;
+    s_last_col = 0U;
+    s_last_row = 0U;
+    s_animal_report_seq = 0U;
+    s_last_animal_report_ms = 0U;
 }
 
 void ProtocolGS_SendUploadAck(uint8_t seq, GsUploadAckResult_e result, uint16_t accepted_count)
@@ -45,6 +56,47 @@ void ProtocolGS_SendUploadAck(uint8_t seq, GsUploadAckResult_e result, uint16_t 
     if (len > 0U)
     {
         (void)BSP_UART_Send(UART_PORT_GS, frame, len);
+    }
+}
+
+void ProtocolGS_SendAnimalReport(uint8_t animal_code, uint8_t col, uint8_t row)
+{
+    uint8_t payload[3];
+    uint8_t frame[APP_PROTO_MAX_FRAME_LEN];
+    uint16_t len;
+    uint32_t now_ms;
+
+    if (animal_code > (uint8_t)GS_ANIMAL_PEACOCK)
+    {
+        return;
+    }
+
+    if ((col < 1U) || (col > 9U) || (row < 1U) || (row > 7U))
+    {
+        return;
+    }
+
+    now_ms = BSP_Timer_NowMs();
+    if ((animal_code == s_last_animal_code) &&
+        (col == s_last_col) &&
+        (row == s_last_row) &&
+        (BSP_Timer_IsElapsed(now_ms, s_last_animal_report_ms, APP_ANIMAL_REPORT_MIN_INTERVAL_MS) == 0U))
+    {
+        return;
+    }
+
+    payload[0] = animal_code;
+    payload[1] = col;
+    payload[2] = row;
+
+    len = Protocol_BuildFrame(MSG_ANIMAL_REPORT, s_animal_report_seq, payload, sizeof(payload), frame);
+    if ((len > 0U) && (BSP_UART_Send(UART_PORT_GS, frame, len) == HAL_OK))
+    {
+        s_last_animal_code = animal_code;
+        s_last_col = col;
+        s_last_row = row;
+        s_last_animal_report_ms = now_ms;
+        s_animal_report_seq++;
     }
 }
 

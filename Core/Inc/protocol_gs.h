@@ -16,9 +16,19 @@ typedef enum
     GS_UPLOAD_ACK_BUFFER_FULL = 0x04
 } GsUploadAckResult_e;
 
+typedef enum
+{
+    GS_ANIMAL_ELEPHANT = 0x00,
+    GS_ANIMAL_TIGER = 0x01,
+    GS_ANIMAL_WOLF = 0x02,
+    GS_ANIMAL_MONKEY = 0x03,
+    GS_ANIMAL_PEACOCK = 0x04
+} GsAnimalCode_e;
+
 void ProtocolGS_Init(void);
 void ProtocolGS_HandleFrame(const ProtoFrame_t *frame);
 void ProtocolGS_SendUploadAck(uint8_t seq, GsUploadAckResult_e result, uint16_t accepted_count);
+void ProtocolGS_SendAnimalReport(uint8_t animal_code, uint8_t col, uint8_t row);
 
 #ifdef __cplusplus
 }
