@@ -28,7 +28,7 @@ typedef enum
 void ProtocolGS_Init(void);
 void ProtocolGS_HandleFrame(const ProtoFrame_t *frame);
 void ProtocolGS_SendUploadAck(uint8_t seq, GsUploadAckResult_e result, uint16_t accepted_count);
-void ProtocolGS_SendAnimalReport(uint8_t animal_code, uint8_t col, uint8_t row);
+void ProtocolGS_SendAnimalReport(uint8_t animal_code, uint8_t col, uint8_t row, uint8_t count);
 
 #ifdef __cplusplus
 }

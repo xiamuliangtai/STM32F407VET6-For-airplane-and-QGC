@@ -1,5 +1,7 @@
 #include "protocol_gs.h"
 
+#include <string.h>
+
 #include "app_context.h"
 #include "bsp_timer.h"
 #include "bsp_uart.h"
@@ -7,11 +9,8 @@
 
 #define GS_POINT_WIRE_SIZE        6U
 
-static uint8_t s_last_animal_code = 0xFFU;
-static uint8_t s_last_col = 0U;
-static uint8_t s_last_row = 0U;
 static uint8_t s_animal_report_seq = 0U;
-static uint32_t s_last_animal_report_ms = 0U;
+static uint8_t s_animal_max_count_sent[5][10][8];
 
 static uint16_t read_u16_le(const uint8_t *data)
 {
@@ -33,11 +32,8 @@ static void record_upload_status(uint8_t seq, GsUploadAckResult_e result)
 
 void ProtocolGS_Init(void)
 {
-    s_last_animal_code = 0xFFU;
-    s_last_col = 0U;
-    s_last_row = 0U;
     s_animal_report_seq = 0U;
-    s_last_animal_report_ms = 0U;
+    memset(s_animal_max_count_sent, 0, sizeof(s_animal_max_count_sent));
 }
 
 void ProtocolGS_SendUploadAck(uint8_t seq, GsUploadAckResult_e result, uint16_t accepted_count)
@@ -59,12 +55,12 @@ void ProtocolGS_SendUploadAck(uint8_t seq, GsUploadAckResult_e result, uint16_t 
     }
 }
 
-void ProtocolGS_SendAnimalReport(uint8_t animal_code, uint8_t col, uint8_t row)
+void ProtocolGS_SendAnimalReport(uint8_t animal_code, uint8_t col, uint8_t row, uint8_t count)
 {
-    uint8_t payload[3];
+    uint8_t payload[4];
     uint8_t frame[APP_PROTO_MAX_FRAME_LEN];
     uint16_t len;
-    uint32_t now_ms;
+    uint8_t max_count_sent;
 
     if (animal_code > (uint8_t)GS_ANIMAL_PEACOCK)
     {
@@ -76,11 +72,13 @@ void ProtocolGS_SendAnimalReport(uint8_t animal_code, uint8_t col, uint8_t row)
         return;
     }
 
-    now_ms = BSP_Timer_NowMs();
-    if ((animal_code == s_last_animal_code) &&
-        (col == s_last_col) &&
-        (row == s_last_row) &&
-        (BSP_Timer_IsElapsed(now_ms, s_last_animal_report_ms, APP_ANIMAL_REPORT_MIN_INTERVAL_MS) == 0U))
+    if (count == 0U)
+    {
+        return;
+    }
+
+    max_count_sent = s_animal_max_count_sent[animal_code][col][row];
+    if (count <= max_count_sent)
     {
         return;
     }
@@ -88,14 +86,12 @@ void ProtocolGS_SendAnimalReport(uint8_t animal_code, uint8_t col, uint8_t row)
     payload[0] = animal_code;
     payload[1] = col;
     payload[2] = row;
+    payload[3] = count;
 
     len = Protocol_BuildFrame(MSG_ANIMAL_REPORT, s_animal_report_seq, payload, sizeof(payload), frame);
     if ((len > 0U) && (BSP_UART_Send(UART_PORT_GS, frame, len) == HAL_OK))
     {
-        s_last_animal_code = animal_code;
-        s_last_col = col;
-        s_last_row = row;
-        s_last_animal_report_ms = now_ms;
+        s_animal_max_count_sent[animal_code][col][row] = count;
         s_animal_report_seq++;
     }
 }

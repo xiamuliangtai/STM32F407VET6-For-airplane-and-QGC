@@ -3,7 +3,7 @@
 <title>Static Call Graph - [stm32_task_ctrl\stm32_task_ctrl.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image stm32_task_ctrl\stm32_task_ctrl.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060528: Last Updated: Wed Apr 22 19:31:54 2026
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060528: Last Updated: Thu Apr 23 10:47:13 2026
 <BR><P>
 <H3>Maximum Stack Usage =       1992 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -527,8 +527,8 @@ Global Symbols
 
 <P><STRONG><a name="[85]"></a>__aeabi_memcpy</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, rt_memcpy_v6.o(.text))
 <BR><BR>[Called By]<UL><LI><a href="#[bd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Mission_LoadPath
-<LI><a href="#[d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Protocol_Parse
-<LI><a href="#[d1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Protocol_BuildFrame
+<LI><a href="#[d8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Protocol_Parse
+<LI><a href="#[d2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Protocol_BuildFrame
 <LI><a href="#[89]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BSP_UART_PushRxFrame
 <LI><a href="#[84]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BSP_UART_FetchFrame
 </UL>
@@ -540,7 +540,8 @@ Global Symbols
 <P><STRONG><a name="[10e]"></a>_memcpy_lastbytes</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, rt_memcpy_v6.o(.text), UNUSED)
 
 <P><STRONG><a name="[87]"></a>__aeabi_memclr</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, rt_memclr.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[86]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BSP_UART_InitAll
+<BR><BR>[Called By]<UL><LI><a href="#[d1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ProtocolGS_Init
+<LI><a href="#[86]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BSP_UART_InitAll
 <LI><a href="#[be]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OLED_Clear
 <LI><a href="#[bc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Mission_Clear
 </UL>
@@ -557,7 +558,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_UART_MspInit
 <LI><a href="#[b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MX_GPIO_Init
 <LI><a href="#[7d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;AppContext_Init
-<LI><a href="#[dc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SystemClock_Config
+<LI><a href="#[dd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SystemClock_Config
 </UL>
 
 <P><STRONG><a name="[110]"></a>__aeabi_memclr8</STRONG> (Thumb, 0 bytes, Stack size 4 bytes, rt_memclr_w.o(.text), UNUSED)
@@ -629,13 +630,12 @@ Global Symbols
 
 <P><STRONG><a name="[11c]"></a>__semihosting_library_function</STRONG> (Thumb, 0 bytes, Stack size 8 bytes, indicate_semi.o(.text), UNUSED)
 
-<P><STRONG><a name="[e1]"></a>BSP_Timer_Init</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, bsp_timer.o(i.BSP_Timer_Init))
+<P><STRONG><a name="[e2]"></a>BSP_Timer_Init</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, bsp_timer.o(i.BSP_Timer_Init))
 <BR><BR>[Called By]<UL><LI><a href="#[70]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
 <P><STRONG><a name="[b7]"></a>BSP_Timer_IsElapsed</STRONG> (Thumb, 14 bytes, Stack size 0 bytes, bsp_timer.o(i.BSP_Timer_IsElapsed))
-<BR><BR>[Called By]<UL><LI><a href="#[d8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Safety_Check
-<LI><a href="#[81]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ProtocolGS_SendAnimalReport
+<BR><BR>[Called By]<UL><LI><a href="#[d9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Safety_Check
 <LI><a href="#[b6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Indicator_Update
 <LI><a href="#[cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OLED_UpdateGsRxDisplay
 </UL>
@@ -643,12 +643,11 @@ Global Symbols
 <P><STRONG><a name="[82]"></a>BSP_Timer_NowMs</STRONG> (Thumb, 4 bytes, Stack size 0 bytes, bsp_timer.o(i.BSP_Timer_NowMs))
 <BR><BR>[Calls]<UL><LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GetTick
 </UL>
-<BR>[Called By]<UL><LI><a href="#[d3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ProtocolUWB_ParseBytes
-<LI><a href="#[d2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ProtocolOpenMV_ParseBytes
+<BR>[Called By]<UL><LI><a href="#[d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ProtocolUWB_ParseBytes
+<LI><a href="#[d3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ProtocolOpenMV_ParseBytes
 <LI><a href="#[d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ProtocolGS_SendUploadAck
 <LI><a href="#[ce]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ProtocolFC_ParseBytes
-<LI><a href="#[d8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Safety_Check
-<LI><a href="#[81]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ProtocolGS_SendAnimalReport
+<LI><a href="#[d9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Safety_Check
 <LI><a href="#[b6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Indicator_Update
 <LI><a href="#[cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OLED_UpdateGsRxDisplay
 </UL>
@@ -658,7 +657,7 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[85]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memcpy
 </UL>
-<BR>[Called By]<UL><LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Protocol_Dispatch
+<BR>[Called By]<UL><LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Protocol_Dispatch
 </UL>
 
 <P><STRONG><a name="[86]"></a>BSP_UART_InitAll</STRONG> (Thumb, 32 bytes, Stack size 8 bytes, bsp_uart.o(i.BSP_UART_InitAll))
@@ -801,7 +800,7 @@ Global Symbols
 <LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_DMA_Abort
 </UL>
 
-<P><STRONG><a name="[db]"></a>HAL_IncTick</STRONG> (Thumb, 12 bytes, Stack size 0 bytes, stm32f4xx_hal.o(i.HAL_IncTick))
+<P><STRONG><a name="[dc]"></a>HAL_IncTick</STRONG> (Thumb, 12 bytes, Stack size 0 bytes, stm32f4xx_hal.o(i.HAL_IncTick))
 <BR><BR>[Called By]<UL><LI><a href="#[c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SysTick_Handler
 </UL>
 
@@ -855,14 +854,14 @@ Global Symbols
 <LI><a href="#[9e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_RCC_GetSysClockFreq
 <LI><a href="#[98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_InitTick
 </UL>
-<BR>[Called By]<UL><LI><a href="#[dc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SystemClock_Config
+<BR>[Called By]<UL><LI><a href="#[dd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SystemClock_Config
 </UL>
 
-<P><STRONG><a name="[e0]"></a>HAL_RCC_GetPCLK1Freq</STRONG> (Thumb, 20 bytes, Stack size 0 bytes, stm32f4xx_hal_rcc.o(i.HAL_RCC_GetPCLK1Freq))
+<P><STRONG><a name="[e1]"></a>HAL_RCC_GetPCLK1Freq</STRONG> (Thumb, 20 bytes, Stack size 0 bytes, stm32f4xx_hal_rcc.o(i.HAL_RCC_GetPCLK1Freq))
 <BR><BR>[Called By]<UL><LI><a href="#[ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART_SetConfig
 </UL>
 
-<P><STRONG><a name="[df]"></a>HAL_RCC_GetPCLK2Freq</STRONG> (Thumb, 20 bytes, Stack size 0 bytes, stm32f4xx_hal_rcc.o(i.HAL_RCC_GetPCLK2Freq))
+<P><STRONG><a name="[e0]"></a>HAL_RCC_GetPCLK2Freq</STRONG> (Thumb, 20 bytes, Stack size 0 bytes, stm32f4xx_hal_rcc.o(i.HAL_RCC_GetPCLK2Freq))
 <BR><BR>[Called By]<UL><LI><a href="#[ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART_SetConfig
 </UL>
 
@@ -879,7 +878,7 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GetTick
 </UL>
-<BR>[Called By]<UL><LI><a href="#[dc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SystemClock_Config
+<BR>[Called By]<UL><LI><a href="#[dd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SystemClock_Config
 </UL>
 
 <P><STRONG><a name="[9a]"></a>HAL_SYSTICK_Config</STRONG> (Thumb, 40 bytes, Stack size 8 bytes, stm32f4xx_hal_cortex.o(i.HAL_SYSTICK_Config))
@@ -969,12 +968,12 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[ac]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_UART_Init
 </UL>
 
-<P><STRONG><a name="[dd]"></a>HAL_UART_RxCpltCallback</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, stm32f4xx_hal_uart.o(i.HAL_UART_RxCpltCallback))
+<P><STRONG><a name="[de]"></a>HAL_UART_RxCpltCallback</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, stm32f4xx_hal_uart.o(i.HAL_UART_RxCpltCallback))
 <BR><BR>[Called By]<UL><LI><a href="#[a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART_Receive_IT
 <LI><a href="#[61]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART_DMAReceiveCplt
 </UL>
 
-<P><STRONG><a name="[de]"></a>HAL_UART_RxHalfCpltCallback</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, stm32f4xx_hal_uart.o(i.HAL_UART_RxHalfCpltCallback))
+<P><STRONG><a name="[df]"></a>HAL_UART_RxHalfCpltCallback</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, stm32f4xx_hal_uart.o(i.HAL_UART_RxHalfCpltCallback))
 <BR><BR>[Called By]<UL><LI><a href="#[62]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART_DMARxHalfCplt
 </UL>
 
@@ -1059,8 +1058,8 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[70]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[da]"></a>MissionFSM_SetState</STRONG> (Thumb, 10 bytes, Stack size 0 bytes, mission_fsm.o(i.MissionFSM_SetState))
-<BR><BR>[Called By]<UL><LI><a href="#[d9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Safety_TriggerAbort
+<P><STRONG><a name="[db]"></a>MissionFSM_SetState</STRONG> (Thumb, 10 bytes, Stack size 0 bytes, mission_fsm.o(i.MissionFSM_SetState))
+<BR><BR>[Called By]<UL><LI><a href="#[da]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Safety_TriggerAbort
 </UL>
 
 <P><STRONG><a name="[bc]"></a>Mission_Clear</STRONG> (Thumb, 14 bytes, Stack size 0 bytes, mission.o(i.Mission_Clear))
@@ -1159,7 +1158,7 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[82]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BSP_Timer_NowMs
 </UL>
-<BR>[Called By]<UL><LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Protocol_Dispatch
+<BR>[Called By]<UL><LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Protocol_Dispatch
 </UL>
 
 <P><STRONG><a name="[cf]"></a>ProtocolGS_HandleFrame</STRONG> (Thumb, 222 bytes, Stack size 544 bytes, protocol_gs.o(i.ProtocolGS_HandleFrame))
@@ -1168,20 +1167,20 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[bd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Mission_LoadPath
 <LI><a href="#[d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ProtocolGS_SendUploadAck
 </UL>
-<BR>[Called By]<UL><LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Protocol_DispatchGsRaw
+<BR>[Called By]<UL><LI><a href="#[d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Protocol_DispatchGsRaw
 </UL>
 
-<P><STRONG><a name="[e2]"></a>ProtocolGS_Init</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, protocol_gs.o(i.ProtocolGS_Init))
-<BR><BR>[Called By]<UL><LI><a href="#[70]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
+<P><STRONG><a name="[d1]"></a>ProtocolGS_Init</STRONG> (Thumb, 16 bytes, Stack size 0 bytes, protocol_gs.o(i.ProtocolGS_Init))
+<BR><BR>[Calls]<UL><LI><a href="#[87]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr
+</UL>
+<BR>[Called By]<UL><LI><a href="#[70]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[81]"></a>ProtocolGS_SendAnimalReport</STRONG> (Thumb, 138 bytes, Stack size 432 bytes, protocol_gs.o(i.ProtocolGS_SendAnimalReport))
-<BR><BR>[Stack]<UL><LI>Max Depth = 512<LI>Call Chain = ProtocolGS_SendAnimalReport &rArr; BSP_UART_Send &rArr; HAL_UART_Transmit &rArr; UART_WaitOnFlagUntilTimeout
+<P><STRONG><a name="[81]"></a>ProtocolGS_SendAnimalReport</STRONG> (Thumb, 112 bytes, Stack size 424 bytes, protocol_gs.o(i.ProtocolGS_SendAnimalReport))
+<BR><BR>[Stack]<UL><LI>Max Depth = 504<LI>Call Chain = ProtocolGS_SendAnimalReport &rArr; BSP_UART_Send &rArr; HAL_UART_Transmit &rArr; UART_WaitOnFlagUntilTimeout
 </UL>
-<BR>[Calls]<UL><LI><a href="#[d1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Protocol_BuildFrame
+<BR>[Calls]<UL><LI><a href="#[d2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Protocol_BuildFrame
 <LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BSP_UART_Send
-<LI><a href="#[82]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BSP_Timer_NowMs
-<LI><a href="#[b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BSP_Timer_IsElapsed
 </UL>
 <BR>[Called By]<UL><LI><a href="#[7f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;App_PollAnimalReportButtons
 </UL>
@@ -1189,85 +1188,85 @@ Global Symbols
 <P><STRONG><a name="[d0]"></a>ProtocolGS_SendUploadAck</STRONG> (Thumb, 104 bytes, Stack size 424 bytes, protocol_gs.o(i.ProtocolGS_SendUploadAck))
 <BR><BR>[Stack]<UL><LI>Max Depth = 504<LI>Call Chain = ProtocolGS_SendUploadAck &rArr; BSP_UART_Send &rArr; HAL_UART_Transmit &rArr; UART_WaitOnFlagUntilTimeout
 </UL>
-<BR>[Calls]<UL><LI><a href="#[d1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Protocol_BuildFrame
+<BR>[Calls]<UL><LI><a href="#[d2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Protocol_BuildFrame
 <LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BSP_UART_Send
 <LI><a href="#[82]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BSP_Timer_NowMs
 </UL>
 <BR>[Called By]<UL><LI><a href="#[cf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ProtocolGS_HandleFrame
-<LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Protocol_DispatchGsRaw
+<LI><a href="#[d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Protocol_DispatchGsRaw
 </UL>
 
 <P><STRONG><a name="[e5]"></a>ProtocolOpenMV_Init</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, protocol_openmv.o(i.ProtocolOpenMV_Init))
 <BR><BR>[Called By]<UL><LI><a href="#[70]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[d2]"></a>ProtocolOpenMV_ParseBytes</STRONG> (Thumb, 28 bytes, Stack size 8 bytes, protocol_openmv.o(i.ProtocolOpenMV_ParseBytes))
+<P><STRONG><a name="[d3]"></a>ProtocolOpenMV_ParseBytes</STRONG> (Thumb, 28 bytes, Stack size 8 bytes, protocol_openmv.o(i.ProtocolOpenMV_ParseBytes))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = ProtocolOpenMV_ParseBytes
 </UL>
 <BR>[Calls]<UL><LI><a href="#[82]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BSP_Timer_NowMs
 </UL>
-<BR>[Called By]<UL><LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Protocol_Dispatch
+<BR>[Called By]<UL><LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Protocol_Dispatch
 </UL>
 
 <P><STRONG><a name="[e4]"></a>ProtocolUWB_Init</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, protocol_uwb.o(i.ProtocolUWB_Init))
 <BR><BR>[Called By]<UL><LI><a href="#[70]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[d3]"></a>ProtocolUWB_ParseBytes</STRONG> (Thumb, 28 bytes, Stack size 8 bytes, protocol_uwb.o(i.ProtocolUWB_ParseBytes))
+<P><STRONG><a name="[d4]"></a>ProtocolUWB_ParseBytes</STRONG> (Thumb, 28 bytes, Stack size 8 bytes, protocol_uwb.o(i.ProtocolUWB_ParseBytes))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = ProtocolUWB_ParseBytes
 </UL>
 <BR>[Calls]<UL><LI><a href="#[82]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BSP_Timer_NowMs
 </UL>
-<BR>[Called By]<UL><LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Protocol_Dispatch
+<BR>[Called By]<UL><LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Protocol_Dispatch
 </UL>
 
-<P><STRONG><a name="[d1]"></a>Protocol_BuildFrame</STRONG> (Thumb, 76 bytes, Stack size 16 bytes, protocol.o(i.Protocol_BuildFrame))
+<P><STRONG><a name="[d2]"></a>Protocol_BuildFrame</STRONG> (Thumb, 76 bytes, Stack size 16 bytes, protocol.o(i.Protocol_BuildFrame))
 <BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = Protocol_BuildFrame &rArr; Protocol_Crc16
 </UL>
-<BR>[Calls]<UL><LI><a href="#[d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Protocol_Crc16
+<BR>[Calls]<UL><LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Protocol_Crc16
 <LI><a href="#[85]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memcpy
 </UL>
 <BR>[Called By]<UL><LI><a href="#[d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ProtocolGS_SendUploadAck
 <LI><a href="#[81]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ProtocolGS_SendAnimalReport
 </UL>
 
-<P><STRONG><a name="[d4]"></a>Protocol_Crc16</STRONG> (Thumb, 52 bytes, Stack size 16 bytes, protocol.o(i.Protocol_Crc16))
+<P><STRONG><a name="[d5]"></a>Protocol_Crc16</STRONG> (Thumb, 52 bytes, Stack size 16 bytes, protocol.o(i.Protocol_Crc16))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = Protocol_Crc16
 </UL>
-<BR>[Called By]<UL><LI><a href="#[d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Protocol_Parse
-<LI><a href="#[d1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Protocol_BuildFrame
+<BR>[Called By]<UL><LI><a href="#[d8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Protocol_Parse
+<LI><a href="#[d2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Protocol_BuildFrame
 </UL>
 
-<P><STRONG><a name="[d5]"></a>Protocol_Dispatch</STRONG> (Thumb, 90 bytes, Stack size 520 bytes, protocol.o(i.Protocol_Dispatch))
+<P><STRONG><a name="[d6]"></a>Protocol_Dispatch</STRONG> (Thumb, 90 bytes, Stack size 520 bytes, protocol.o(i.Protocol_Dispatch))
 <BR><BR>[Stack]<UL><LI>Max Depth = 1992<LI>Call Chain = Protocol_Dispatch &rArr; Protocol_DispatchGsRaw &rArr; ProtocolGS_HandleFrame &rArr; ProtocolGS_SendUploadAck &rArr; BSP_UART_Send &rArr; HAL_UART_Transmit &rArr; UART_WaitOnFlagUntilTimeout
 </UL>
-<BR>[Calls]<UL><LI><a href="#[d3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ProtocolUWB_ParseBytes
-<LI><a href="#[d2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ProtocolOpenMV_ParseBytes
+<BR>[Calls]<UL><LI><a href="#[d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ProtocolUWB_ParseBytes
+<LI><a href="#[d3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ProtocolOpenMV_ParseBytes
 <LI><a href="#[ce]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ProtocolFC_ParseBytes
-<LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Protocol_DispatchGsRaw
+<LI><a href="#[d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Protocol_DispatchGsRaw
 <LI><a href="#[84]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BSP_UART_FetchFrame
 </UL>
 <BR>[Called By]<UL><LI><a href="#[70]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[d7]"></a>Protocol_Parse</STRONG> (Thumb, 108 bytes, Stack size 24 bytes, protocol.o(i.Protocol_Parse))
+<P><STRONG><a name="[d8]"></a>Protocol_Parse</STRONG> (Thumb, 108 bytes, Stack size 24 bytes, protocol.o(i.Protocol_Parse))
 <BR><BR>[Stack]<UL><LI>Max Depth = 40<LI>Call Chain = Protocol_Parse &rArr; Protocol_Crc16
 </UL>
-<BR>[Calls]<UL><LI><a href="#[d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Protocol_Crc16
+<BR>[Calls]<UL><LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Protocol_Crc16
 <LI><a href="#[85]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memcpy
 </UL>
-<BR>[Called By]<UL><LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Protocol_DispatchGsRaw
+<BR>[Called By]<UL><LI><a href="#[d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Protocol_DispatchGsRaw
 </UL>
 
 <P><STRONG><a name="[9]"></a>SVC_Handler</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, stm32f4xx_it.o(i.SVC_Handler))
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32f407xx.o(RESET)
 </UL>
-<P><STRONG><a name="[d8]"></a>Safety_Check</STRONG> (Thumb, 66 bytes, Stack size 16 bytes, safety.o(i.Safety_Check))
+<P><STRONG><a name="[d9]"></a>Safety_Check</STRONG> (Thumb, 66 bytes, Stack size 16 bytes, safety.o(i.Safety_Check))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = Safety_Check
 </UL>
 <BR>[Calls]<UL><LI><a href="#[82]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BSP_Timer_NowMs
 <LI><a href="#[b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BSP_Timer_IsElapsed
-<LI><a href="#[d9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Safety_TriggerAbort
+<LI><a href="#[da]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Safety_TriggerAbort
 </UL>
 <BR>[Called By]<UL><LI><a href="#[70]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
@@ -1276,18 +1275,18 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[70]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[d9]"></a>Safety_TriggerAbort</STRONG> (Thumb, 22 bytes, Stack size 0 bytes, safety.o(i.Safety_TriggerAbort))
-<BR><BR>[Calls]<UL><LI><a href="#[da]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MissionFSM_SetState
+<P><STRONG><a name="[da]"></a>Safety_TriggerAbort</STRONG> (Thumb, 22 bytes, Stack size 0 bytes, safety.o(i.Safety_TriggerAbort))
+<BR><BR>[Calls]<UL><LI><a href="#[db]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MissionFSM_SetState
 </UL>
-<BR>[Called By]<UL><LI><a href="#[d8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Safety_Check
+<BR>[Called By]<UL><LI><a href="#[d9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Safety_Check
 </UL>
 
 <P><STRONG><a name="[c]"></a>SysTick_Handler</STRONG> (Thumb, 4 bytes, Stack size 0 bytes, stm32f4xx_it.o(i.SysTick_Handler))
-<BR><BR>[Calls]<UL><LI><a href="#[db]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_IncTick
+<BR><BR>[Calls]<UL><LI><a href="#[dc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_IncTick
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32f407xx.o(RESET)
 </UL>
-<P><STRONG><a name="[dc]"></a>SystemClock_Config</STRONG> (Thumb, 142 bytes, Stack size 88 bytes, main.o(i.SystemClock_Config))
+<P><STRONG><a name="[dd]"></a>SystemClock_Config</STRONG> (Thumb, 142 bytes, Stack size 88 bytes, main.o(i.SystemClock_Config))
 <BR><BR>[Stack]<UL><LI>Max Depth = 176<LI>Call Chain = SystemClock_Config &rArr; HAL_RCC_ClockConfig &rArr; HAL_RCC_GetSysClockFreq &rArr; __aeabi_uldivmod
 </UL>
 <BR>[Calls]<UL><LI><a href="#[a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_RCC_OscConfig
@@ -1336,11 +1335,11 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[ea]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Telemetry_Task
 <LI><a href="#[e7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Telemetry_Init
 <LI><a href="#[e6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Safety_Init
-<LI><a href="#[d8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Safety_Check
-<LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Protocol_Dispatch
+<LI><a href="#[d9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Safety_Check
+<LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Protocol_Dispatch
 <LI><a href="#[e4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ProtocolUWB_Init
 <LI><a href="#[e5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ProtocolOpenMV_Init
-<LI><a href="#[e2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ProtocolGS_Init
+<LI><a href="#[d1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ProtocolGS_Init
 <LI><a href="#[e3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ProtocolFC_Init
 <LI><a href="#[c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OLED_Init
 <LI><a href="#[ba]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MissionFSM_Run
@@ -1353,9 +1352,9 @@ Global Symbols
 <LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GetTick
 <LI><a href="#[e9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BSP_UART_PollFlags
 <LI><a href="#[86]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BSP_UART_InitAll
-<LI><a href="#[e1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BSP_Timer_Init
+<LI><a href="#[e2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BSP_Timer_Init
 <LI><a href="#[7d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;AppContext_Init
-<LI><a href="#[dc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SystemClock_Config
+<LI><a href="#[dd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SystemClock_Config
 <LI><a href="#[cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OLED_UpdateGsRxDisplay
 <LI><a href="#[7f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;App_PollAnimalReportButtons
 </UL>
@@ -1373,8 +1372,8 @@ Global Symbols
 <H3>
 Local Symbols
 </H3>
-<P><STRONG><a name="[7f]"></a>App_PollAnimalReportButtons</STRONG> (Thumb, 78 bytes, Stack size 16 bytes, main.o(i.App_PollAnimalReportButtons))
-<BR><BR>[Stack]<UL><LI>Max Depth = 528<LI>Call Chain = App_PollAnimalReportButtons &rArr; ProtocolGS_SendAnimalReport &rArr; BSP_UART_Send &rArr; HAL_UART_Transmit &rArr; UART_WaitOnFlagUntilTimeout
+<P><STRONG><a name="[7f]"></a>App_PollAnimalReportButtons</STRONG> (Thumb, 82 bytes, Stack size 16 bytes, main.o(i.App_PollAnimalReportButtons))
+<BR><BR>[Stack]<UL><LI>Max Depth = 520<LI>Call Chain = App_PollAnimalReportButtons &rArr; ProtocolGS_SendAnimalReport &rArr; BSP_UART_Send &rArr; HAL_UART_Transmit &rArr; UART_WaitOnFlagUntilTimeout
 </UL>
 <BR>[Calls]<UL><LI><a href="#[81]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ProtocolGS_SendAnimalReport
 <LI><a href="#[80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GPIO_ReadPin
@@ -1402,14 +1401,14 @@ Local Symbols
 <LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_UARTEx_RxEventCallback
 </UL>
 
-<P><STRONG><a name="[d6]"></a>Protocol_DispatchGsRaw</STRONG> (Thumb, 162 bytes, Stack size 424 bytes, protocol.o(i.Protocol_DispatchGsRaw))
+<P><STRONG><a name="[d7]"></a>Protocol_DispatchGsRaw</STRONG> (Thumb, 162 bytes, Stack size 424 bytes, protocol.o(i.Protocol_DispatchGsRaw))
 <BR><BR>[Stack]<UL><LI>Max Depth = 1472<LI>Call Chain = Protocol_DispatchGsRaw &rArr; ProtocolGS_HandleFrame &rArr; ProtocolGS_SendUploadAck &rArr; BSP_UART_Send &rArr; HAL_UART_Transmit &rArr; UART_WaitOnFlagUntilTimeout
 </UL>
 <BR>[Calls]<UL><LI><a href="#[d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ProtocolGS_SendUploadAck
 <LI><a href="#[cf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ProtocolGS_HandleFrame
-<LI><a href="#[d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Protocol_Parse
+<LI><a href="#[d8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Protocol_Parse
 </UL>
-<BR>[Called By]<UL><LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Protocol_Dispatch
+<BR>[Called By]<UL><LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Protocol_Dispatch
 </UL>
 
 <P><STRONG><a name="[c1]"></a>OLED_DelayShort</STRONG> (Thumb, 18 bytes, Stack size 8 bytes, oled.o(i.OLED_DelayShort))
@@ -1535,7 +1534,7 @@ Local Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 108<LI>Call Chain = UART_DMAReceiveCplt &rArr; HAL_UARTEx_RxEventCallback &rArr; BSP_UART_StartRx &rArr; HAL_UARTEx_ReceiveToIdle_DMA &rArr; UART_Start_Receive_DMA &rArr; HAL_DMA_Start_IT &rArr; DMA_SetConfig
 </UL>
 <BR>[Calls]<UL><LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_UARTEx_RxEventCallback
-<LI><a href="#[dd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_UART_RxCpltCallback
+<LI><a href="#[de]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_UART_RxCpltCallback
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> stm32f4xx_hal_uart.o(i.UART_Start_Receive_DMA)
 </UL>
@@ -1543,7 +1542,7 @@ Local Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 108<LI>Call Chain = UART_DMARxHalfCplt &rArr; HAL_UARTEx_RxEventCallback &rArr; BSP_UART_StartRx &rArr; HAL_UARTEx_ReceiveToIdle_DMA &rArr; UART_Start_Receive_DMA &rArr; HAL_DMA_Start_IT &rArr; DMA_SetConfig
 </UL>
 <BR>[Calls]<UL><LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_UARTEx_RxEventCallback
-<LI><a href="#[de]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_UART_RxHalfCpltCallback
+<LI><a href="#[df]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_UART_RxHalfCpltCallback
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> stm32f4xx_hal_uart.o(i.UART_Start_Receive_DMA)
 </UL>
@@ -1569,7 +1568,7 @@ Local Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 108<LI>Call Chain = UART_Receive_IT &rArr; HAL_UARTEx_RxEventCallback &rArr; BSP_UART_StartRx &rArr; HAL_UARTEx_ReceiveToIdle_DMA &rArr; UART_Start_Receive_DMA &rArr; HAL_DMA_Start_IT &rArr; DMA_SetConfig
 </UL>
 <BR>[Calls]<UL><LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_UARTEx_RxEventCallback
-<LI><a href="#[dd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_UART_RxCpltCallback
+<LI><a href="#[de]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_UART_RxCpltCallback
 </UL>
 <BR>[Called By]<UL><LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_UART_IRQHandler
 </UL>
@@ -1577,8 +1576,8 @@ Local Symbols
 <P><STRONG><a name="[ae]"></a>UART_SetConfig</STRONG> (Thumb, 258 bytes, Stack size 16 bytes, stm32f4xx_hal_uart.o(i.UART_SetConfig))
 <BR><BR>[Stack]<UL><LI>Max Depth = 64<LI>Call Chain = UART_SetConfig &rArr; __aeabi_uldivmod
 </UL>
-<BR>[Calls]<UL><LI><a href="#[df]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_RCC_GetPCLK2Freq
-<LI><a href="#[e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_RCC_GetPCLK1Freq
+<BR>[Calls]<UL><LI><a href="#[e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_RCC_GetPCLK2Freq
+<LI><a href="#[e1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_RCC_GetPCLK1Freq
 <LI><a href="#[9f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_uldivmod
 </UL>
 <BR>[Called By]<UL><LI><a href="#[ac]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_UART_Init

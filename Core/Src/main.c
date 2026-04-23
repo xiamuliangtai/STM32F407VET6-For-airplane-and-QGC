@@ -50,6 +50,7 @@
 #define TEST_ELEPHANT_ROW                  1U
 #define TEST_TIGER_COL                     2U
 #define TEST_TIGER_ROW                     1U
+#define TEST_ANIMAL_COUNT                  1U
 
 /* USER CODE END PD */
 
@@ -88,12 +89,18 @@ static void App_PollAnimalReportButtons(void)
 
   if ((key0_pressed != 0U) && (s_key0_prev_pressed == 0U))
   {
-    ProtocolGS_SendAnimalReport((uint8_t)GS_ANIMAL_ELEPHANT, TEST_ELEPHANT_COL, TEST_ELEPHANT_ROW);
+    ProtocolGS_SendAnimalReport((uint8_t)GS_ANIMAL_ELEPHANT,
+                                TEST_ELEPHANT_COL,
+                                TEST_ELEPHANT_ROW,
+                                TEST_ANIMAL_COUNT);
   }
 
   if ((key1_pressed != 0U) && (s_key1_prev_pressed == 0U))
   {
-    ProtocolGS_SendAnimalReport((uint8_t)GS_ANIMAL_TIGER, TEST_TIGER_COL, TEST_TIGER_ROW);
+    ProtocolGS_SendAnimalReport((uint8_t)GS_ANIMAL_TIGER,
+                                TEST_TIGER_COL,
+                                TEST_TIGER_ROW,
+                                TEST_ANIMAL_COUNT);
   }
 
   s_key0_prev_pressed = key0_pressed;
